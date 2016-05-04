@@ -38,6 +38,10 @@ public class DashboardActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        DashboardFragment dashboardFrag = new DashboardFragment();
+        ft.replace(R.id.fragment_container,dashboardFrag).commit();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -80,7 +84,11 @@ public class DashboardActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
         if (id == R.id.nav_dashboard) {
+            DashboardFragment dashboardFrag = new DashboardFragment();
+            ft.replace(R.id.fragment_container,dashboardFrag).commit();
 
         } else if (id == R.id.nav_posture) {
 
