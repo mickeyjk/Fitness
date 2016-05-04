@@ -89,11 +89,12 @@ public class DashboardActivity extends AppCompatActivity
         if (id == R.id.nav_dashboard) {
             DashboardFragment dashboardFrag = DashboardFragment.newInstance();
             ft.replace(R.id.fragment_container,dashboardFrag).commit();
-
         } else if (id == R.id.nav_posture) {
-
+            PostureFragment postureFrag = PostureFragment.newInstance();
+            ft.replace(R.id.fragment_container, postureFrag).commit();
         } else if (id == R.id.nav_weight_tracking) {
-
+            WeightTrackingFragment weightTrackingFrag = WeightTrackingFragment.newInstance();
+            ft.replace(R.id.fragment_container, weightTrackingFrag).commit();
         } else if (id == R.id.nav_weight_lifting) {
 
         } else if (id == R.id.nav_sleep) {
