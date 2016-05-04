@@ -4,5 +4,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_posture">Posture</string>
+    <string name="nav_weight_tracking">Weight Tracking</string>
+    <string name="nav_weight_lifting">Weight Lifting</string>
+    <string name="nav_sleep">Sleep</string>
+    <string name="nav_medals">Medals</string>
+
     <string name="action_settings">Settings</string>
 </resources>
