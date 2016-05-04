@@ -39,7 +39,7 @@ public class DashboardActivity extends AppCompatActivity
         toggle.syncState();
 
         android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        DashboardFragment dashboardFrag = new DashboardFragment();
+        DashboardFragment dashboardFrag = DashboardFragment.newInstance();
         ft.replace(R.id.fragment_container,dashboardFrag).commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -87,7 +87,7 @@ public class DashboardActivity extends AppCompatActivity
         android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_dashboard) {
-            DashboardFragment dashboardFrag = new DashboardFragment();
+            DashboardFragment dashboardFrag = DashboardFragment.newInstance();
             ft.replace(R.id.fragment_container,dashboardFrag).commit();
 
         } else if (id == R.id.nav_posture) {
