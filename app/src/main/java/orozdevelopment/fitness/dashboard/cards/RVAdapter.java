@@ -71,13 +71,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVHolder>{
                 BasicInfoCardViewHolder holder1 = (BasicInfoCardViewHolder) holder;
 
                 holder1.nameView.setText(card.name);
-                holder1.ageView.setText(String.valueOf(card.age));
-                holder1.weightView.setText(String.valueOf(card.weight));
-                holder1.heightView.setText(String.valueOf(card.height));
-                holder1.bmiView.setText(String.valueOf(card.bmi));
+                holder1.ageView.setText(String.valueOf("Age: " + card.age));
+                holder1.weightView.setText(String.valueOf("Weight: " + card.weight));
+                holder1.heightView.setText(String.valueOf("Height: " + card.height));
+                holder1.bmiView.setText(String.valueOf("BMI: " + card.bmi));
                 holder1.photoView.setImageResource(card.personalPhotoId);
 
-                holder = holder1;
                 break;
         }
 

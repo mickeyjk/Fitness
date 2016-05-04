@@ -1,0 +1,36 @@
+TO CREATE A NEW CARD TYPE TO:
+- Create card layout xml
+    - Naming convention: 'dashboard_xxx_yyy_card.xml'
+    - CardView must be nested inside LinearLayout
+        - LinearLayout.layout_height="wrap_content"
+        - LinearLayout.layout_width="match_parent"
+        - LinearLayout.padding="16dp"
+        - CardView.layout_height="wrap_content"
+        - CardView.layout_width="match_parent"
+        - CardView.id="@+id/cv"
+    - example file: dashboard_basic_info_card.xml
+
+- Create CardObject extends ICard
+    - Include data members for each TextView/ImageView
+    - Constructor must call super(cardType)
+        - cardType is int***
+    - example file: BasicInfoCard.java
+
+- Create CardViewHolder extends RVHolder
+    - Include view data members for each TextView/ImageView
+    - Constructor must call super(itemView)
+    - example file: BasicInfoCardViewHolder.java
+
+- Edit RVAdapter.java
+    - Edit onCreateViewHolder()
+        - add case in switch statement for the card
+    - Edit onBindViewHolder()
+        - add case in switch statement for the card
+
+- Edit DashboardFragment.java
+    - Add card data to initializeData()
+
+
+
+*** cardType integers already claimed:
+    0) BasicInfoCard
