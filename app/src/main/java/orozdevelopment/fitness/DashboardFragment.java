@@ -14,6 +14,7 @@ import java.util.List;
 
 import orozdevelopment.fitness.dashboard.cards.BasicInfoCard;
 import orozdevelopment.fitness.dashboard.cards.ICard;
+import orozdevelopment.fitness.dashboard.cards.LastWorkoutCard;
 import orozdevelopment.fitness.dashboard.cards.RVAdapter;
 
 
@@ -72,7 +73,8 @@ public class DashboardFragment extends Fragment {
         cards = new ArrayList<ICard>();
 
         cards.add(new BasicInfoCard("Michael Cohen", 21, 170, 160, 0.18, R.drawable.ic_menu_gallery));
-        cards.add(new BasicInfoCard("Or Oz", 21, 169, 170, 0.5, R.drawable.ic_menu_gallery));
+        cards.add(new LastWorkoutCard());
+
     }
 
     private void initializeAdapter(){

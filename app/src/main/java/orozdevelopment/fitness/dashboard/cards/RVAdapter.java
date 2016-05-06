@@ -2,6 +2,7 @@ package orozdevelopment.fitness.dashboard.cards;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVHolder>{
                         .inflate(R.layout.dashboard_basic_info_card, viewGroup, false);
                 holder = new BasicInfoCardViewHolder(v);
                 break;
+            case 1:
+                v = LayoutInflater.from(context)
+                        .inflate(R.layout.dashboard_last_workout_card, viewGroup, false);
+                holder = new LastWorkoutCardViewHolder(v);
+                break;
             default:
                 v = LayoutInflater.from(context)
                         .inflate(R.layout.dashboard_basic_info_card, viewGroup, false);
@@ -76,6 +82,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVHolder>{
                 holder1.heightView.setText(String.valueOf("Height: " + card.height));
                 holder1.bmiView.setText(String.valueOf("BMI: " + card.bmi));
                 holder1.photoView.setImageResource(card.personalPhotoId);
+
+                break;
+            case 1:
+                LastWorkoutCard lastWorkoutCardcard = (LastWorkoutCard)cards.get(index);
+                LastWorkoutCardViewHolder holder2 = (LastWorkoutCardViewHolder)holder;
 
                 break;
         }
