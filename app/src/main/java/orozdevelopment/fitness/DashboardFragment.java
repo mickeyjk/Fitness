@@ -2,6 +2,8 @@ package orozdevelopment.fitness;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -61,6 +63,15 @@ public class DashboardFragment extends Fragment {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        FloatingActionButton fab = (FloatingActionButton)v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Dashboard FAB", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
         initializeData();
         initializeAdapter();
 
@@ -73,6 +84,15 @@ public class DashboardFragment extends Fragment {
         cards = new ArrayList<ICard>();
 
         cards.add(new BasicInfoCard("Michael Cohen", 21, 170, 160, 0.18, R.drawable.ic_menu_gallery));
+        cards.add(new LastWorkoutCard());
+
+        cards.add(new BasicInfoCard("Or Oz", 21, 170, 160, 0.18, R.drawable.ic_menu_gallery));
+        cards.add(new LastWorkoutCard());
+
+        cards.add(new BasicInfoCard("Michael Cohen", 21, 170, 160, 0.18, R.drawable.ic_menu_gallery));
+        cards.add(new LastWorkoutCard());
+
+        cards.add(new BasicInfoCard("Or OZ", 21, 170, 160, 0.18, R.drawable.ic_menu_gallery));
         cards.add(new LastWorkoutCard());
 
     }
