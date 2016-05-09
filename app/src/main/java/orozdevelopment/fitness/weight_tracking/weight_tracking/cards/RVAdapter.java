@@ -15,8 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 import orozdevelopment.fitness.R;
-import orozdevelopment.fitness.dashboard.cards.ICard;
-import orozdevelopment.fitness.dashboard.cards.RVHolder;
 import orozdevelopment.fitness.data.DBHelper;
 import orozdevelopment.fitness.data.DatabaseContract;
 
