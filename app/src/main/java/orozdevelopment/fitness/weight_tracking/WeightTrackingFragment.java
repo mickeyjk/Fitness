@@ -1,26 +1,33 @@
-package orozdevelopment.fitness;
+package orozdevelopment.fitness.weight_tracking;
 
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
+import orozdevelopment.fitness.R;
 import orozdevelopment.fitness.data.DBHelper;
 import orozdevelopment.fitness.data.DatabaseContract;
+import orozdevelopment.fitness.weight_tracking.weight_tracking.cards.RVAdapter;
 
 
 /**
@@ -28,10 +35,13 @@ import orozdevelopment.fitness.data.DatabaseContract;
  * Use the {@link WeightTrackingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeightTrackingFragment extends Fragment {
+public class WeightTrackingFragment extends Fragment implements AddWeightDialogFragment.AddWeightDialogListener, CardView.OnClickListener {
 
-    private TextView tv;
-    private HashMap<Date, Float> weights;
+    private RecyclerView rv;
+    private RVAdapter adapter;
+
+    ArrayList<Date> dates;
+    ArrayList<Float> weights;
 
     public WeightTrackingFragment() {
         // Required empty public constructor
@@ -64,25 +74,61 @@ public class WeightTrackingFragment extends Fragment {
 
         //Get Weight Data
         Context context = container.getContext();
-        this.weights = readData(context);
 
-        tv = (TextView)v.findViewById(R.id.weight_text_view);
+        rv = (RecyclerView) v.findViewById(R.id.rv_weight);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        readData(context);
+
+        this.adapter = new RVAdapter(dates, weights, this);
+        rv.setAdapter(this.adapter);
 
         FloatingActionButton fab = (FloatingActionButton)v.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewWeight();
+                showAddWeightDialog();
             }
         });
 
         return v;
     }
 
-    public HashMap<Date, Float> readData(Context c){
+
+    /*
+     * RECYCLER VIEW METHODS
+     */
+    private void updateWeightsList(){
+        readData(getContext());
+        adapter.setDates(this.dates);
+        adapter.setWeights(this.weights);
+        adapter.notifyDataSetChanged();
+    }
+
+    //CardView.OnClickListener implemented in this class because change in data had to propagate to the date and weight arrays here somehow
+    //TODO: Refactor the way data is handled between RVAdapter and WeightTrackingFragment
+    @Override
+    public void onClick(View v){
+        Integer index = (Integer)v.getTag();
+
+        adapter.deleteData(v.getContext(), index);
+        dates.remove(index);
+        weights.remove(index);
+
+        adapter.notifyItemRemoved(index);
+        adapter.notifyItemRangeChanged(index, adapter.getItemCount());
+
+    }
+
+    /*
+     * DATABASE OPERATIONS
+     */
+    private void readData(Context c){
 
         DBHelper helper = new DBHelper(c);
         SQLiteDatabase db = helper.getReadableDatabase();
+
         String[] projection = {
           DatabaseContract.WeightsTBL.COLUMN_NAME_DATE,
                 DatabaseContract.WeightsTBL.COLUMN_NAME_WEIGHT
@@ -99,10 +145,11 @@ public class WeightTrackingFragment extends Fragment {
                 sortOrder
         );
 
-        HashMap<Date, Float> w = new HashMap<Date, Float>();
+        dates = new ArrayList<Date>();
+        weights = new ArrayList<Float>();
 
         cursor.moveToFirst();
-        while (!cursor.moveToNext()){
+        while (cursor.moveToNext()){
             Long millis = cursor.getLong(
                     cursor.getColumnIndexOrThrow(DatabaseContract.WeightsTBL.COLUMN_NAME_DATE)
             );
@@ -112,13 +159,14 @@ public class WeightTrackingFragment extends Fragment {
                     cursor.getColumnIndexOrThrow(DatabaseContract.WeightsTBL.COLUMN_NAME_WEIGHT)
             );
 
-            w.put(date, weight);
+            dates.add(date);
+            weights.add(weight);
         }
 
-        return w;
+
     }
 
-    public long writeData(Context c, String textViewData){
+    private long writeData(Context c, String textViewData){
 
         DBHelper helper = new DBHelper(c);
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -140,8 +188,33 @@ public class WeightTrackingFragment extends Fragment {
         return rowID;
     }
 
-    public void addNewWeight(){
-        
+
+    /*
+     * ADD WEIGHT DIALOG METHODS / LISTENER IMPLEMENTATION
+     */
+    public void showAddWeightDialog() {
+        System.out.println("Begin Show Add Dialog");
+
+        AddWeightDialogFragment fragment = AddWeightDialogFragment.newInstance(this);
+        fragment.show(getFragmentManager(), "add_weight_dialog");
+
     }
+
+
+    public void onDialogPositiveClick(AddWeightDialogFragment dialog){
+        EditText editText = dialog.weightInput;
+
+        writeData(getContext(), editText.getText().toString());
+        updateWeightsList();
+    }
+    public void onDialogNegativeClick(AddWeightDialogFragment dialog){
+        EditText editText = dialog.weightInput;
+        editText.setText("");
+        updateWeightsList();
+
+    }
+
+
+
 
 }

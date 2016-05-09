@@ -59,7 +59,7 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        rv = (RecyclerView)v.findViewById(R.id.rv);
+        rv = (RecyclerView)v.findViewById(R.id.rv_dashboard);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
