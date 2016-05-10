@@ -2,14 +2,17 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+<<<<<<< HEAD
              tools:context="orozdevelopment.fitness.weight_tracking.WeightTrackingFragment">
+=======
+             tools:context=".weight_tracking.WeightTrackingFragment">
+>>>>>>> MuchenOzen/weight_tracking_branch
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/weight_text_view"
-        android:text="weight tracking"/>
+        android:id="@+id/rv_weight"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -17,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_black_24dp"/>
+        android:src="@drawable/ic_add_white_24px"/>
 
 
 </FrameLayout>

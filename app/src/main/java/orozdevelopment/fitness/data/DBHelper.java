@@ -1,8 +1,11 @@
 package orozdevelopment.fitness.data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.Settings;
+import android.util.Log;
 
 /**
  * Created by michael on 5/6/16.
@@ -17,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + DatabaseContract.WeightsTBL.TABLE_NAME + " (" +
                     DatabaseContract.WeightsTBL._ID + " INTEGER PRIMARY KEY," +
                     DatabaseContract.WeightsTBL.COLUMN_NAME_DATE + FLOAT_TYPE + COMMA_SEP +
-                    DatabaseContract.WeightsTBL.COLUMN_NAME_WEIGHT + LONG_TYPE + COMMA_SEP +
+                    DatabaseContract.WeightsTBL.COLUMN_NAME_WEIGHT + LONG_TYPE  +
             " )";
 
     public static final int DATABASE_VERSION = 1;
@@ -29,6 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
+        System.out.println(SQL_CREATE_ENTRIES);
         db.execSQL(SQL_CREATE_ENTRIES);
     }
 
@@ -41,6 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
+
 
 
 }
